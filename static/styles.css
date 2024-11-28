@@ -1,0 +1,16 @@
+body {
+    background-color: #f8f9fa;
+    font-family: Arial, sans-serif;
+}
+
+h1 {
+    color: #007bff;
+}
+
+.container {
+    margin-top: 50px;
+}
+
+.alert {
+    font-size: 16px;
+}

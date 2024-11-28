@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TinyURL Generator</title>
+    <!-- Add Bootstrap for easy styling -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+
+<div class="container">
+    <h1 class="mt-5 text-center">TinyURL Generator</h1>
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <!-- URL form -->
+            <form method="POST" action="/">
+                <div class="form-group">
+                    <label for="url">Enter the full URL:</label>
+                    <input type="text" class="form-control" name="url" id="url" required placeholder="Enter a URL">
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">Generate Short URL</button>
+            </form>
+
+            {% if short_url %}
+            <div class="alert alert-success mt-4">
+                <strong>Shortened URL:</strong> 
+                <a href="{{ url_for('redirect_url', var=short_url) }}" target="_blank">{{ url_for('redirect_url', var=short_url) }}</a>
+            </div>
+            <div class="alert alert-info">
+                <strong>Original URL:</strong> {{ full_url }}
+            </div>
+            {% endif %}
+
+            {% if error %}
+            <div class="alert alert-danger mt-4">
+                {{ error }}
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<!-- Add Bootstrap JS and dependencies -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
