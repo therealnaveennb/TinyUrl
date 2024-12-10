@@ -17,12 +17,12 @@ def connect_to_mongodb():
     uri = f"mongodb+srv://{mongo_username}:{db_password}@news-analyzer.0ittn.mongodb.net/{db_name}?retryWrites=true&w=majority&appName=News-analyzer"
     client = MongoClient(uri, server_api=server_api.ServerApi('1'), ssl=True, tlsAllowInvalidCertificates=True)
     db = client[db_name]
-    return db
+    collection_name =os.getenv('COLLECTION_NAME')
+    collection = db[collection_name]
+    return collection
 
 def createURL(data):
-    db=connect_to_mongodb()
-    collection_name = os.getenv('COLLECTION_NAME')
-    collection = db[collection_name]
+    collection =connect_to_mongodb()
     try :
         result = collection.insert_one(data)
         if not result :
@@ -34,11 +34,14 @@ def createURL(data):
 
 
 def getURL(var):
-    db=connect_to_mongodb()
-    collection_name = os.getenv('COLLECTION_NAME')
-    collection = db[collection_name]
-    result = collection.find_one({'var':var})
-    return result["url"]
+    try:
+        collection =connect_to_mongodb()
+        result = collection.find_one({'var':var})
+        if not result:
+            return None
+        return result
+    except Exception as e :
+        return jsonify({"error":str(e)}),500
 
 
         
