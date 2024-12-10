@@ -1,11 +1,10 @@
 from flask import Flask, request, render_template, redirect, url_for
 import random
 import string
+from mongoDB import createURL,getURL
 
 app = Flask(__name__)
 
-# Dictionary to store short URL mapping
-urlDict = {"ghdeqs": "https://mail.google.com/mail/u/0/#inbox"}
 
 def generate_alphanumeric_code(length=6):
     # Define characters for the code (letters and digits)
@@ -14,10 +13,14 @@ def generate_alphanumeric_code(length=6):
     code = ''.join(random.choices(characters, k=length))
     return code
 
+
+
 def addurl(url):
     # Generate a short URL code and add it to the dictionary
     var = generate_alphanumeric_code()
-    urlDict[var] = url
+    data ={"var":var,
+            "URL":url}
+    createURL(data)
     return var  # Return the short URL code
 
 @app.route('/', methods=['GET', 'POST'])
@@ -36,11 +39,11 @@ def home():
 
 @app.route('/url/<var>')
 def redirect_url(var):
-    if var in urlDict:
         # Redirect to the original URL associated with the short URL
-        return redirect(urlDict.get(var), code=302)
-    else:
-        return "No TinyURL Found", 404
+    redURL = getURL(var)
+    print(redURL)
+   
+    return redirect(redURL, code=302)
 
 if __name__ == "__main__":
     app.run(debug=True)
