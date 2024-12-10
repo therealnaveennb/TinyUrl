@@ -1,22 +1,29 @@
 from flask import Flask, request, render_template, redirect, url_for
 import random
 import string
+import hashlib
+
 
 app = Flask(__name__)
 
 # Dictionary to store short URL mapping
 urlDict = {"ghdeqs": "https://mail.google.com/mail/u/0/#inbox"}
 
-def generate_alphanumeric_code(length=6):
-    # Define characters for the code (letters and digits)
-    characters = string.ascii_letters + string.digits
-    # Randomly select characters to create the code
-    code = ''.join(random.choices(characters, k=length))
-    return code
+def hash_url(url):
+    
+    # Encoding string and generating MD5 hash
+    result = hashlib.md5(str2hash.encode())
+
+    # Getting the hexadecimal equivalent of the hash
+    hex_hash = result.hexdigest()
+
+    # Extracting the first 6 alphanumeric characters
+    short_hash = hex_hash[:6]
+    return short_hash
+
 
 def addurl(url):
-    # Generate a short URL code and add it to the dictionary
-    var = generate_alphanumeric_code()
+    short_hash = hash_url(url)
     urlDict[var] = url
     return var  # Return the short URL code
 
