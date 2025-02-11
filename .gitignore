@@ -1,1 +1,71 @@
-/myenv
+# Byte-compiled / cached files
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyc
+# Virtual environment
+myenv/
+venv/
+ENV/
+env/
+*.venv
+*.env
+
+# Flask specific files
+instance/
+*.db
+*.sqlite3
+
+# Environment variables and secrets
+.env
+.env.local
+.env.production
+.env.development
+config.py
+
+# Logs and debug files
+*.log
+logs/
+debug.log
+
+# Pytest and coverage reports
+.coverage
+.tox/
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+*.hypothesis/
+
+# IDE and Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*.sublime-workspace
+
+# Deployment-related files
+.DS_Store
+*.pid
+*.sock
+*.tar.gz
+*.zip
+
+# Docker and Kubernetes
+docker-compose.override.yml
+*.dockerignore
+
+# Jupyter Notebook
+.ipynb_checkpoints/
+
+# Static and media files (optional)
+staticfiles/
+media/
+
+# Gunicorn logs
+gunicorn.log
+gunicorn.error
+
+# Nginx and Supervisor logs
+nginx.log
+supervisor.log
